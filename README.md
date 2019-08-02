@@ -1,1 +1,2 @@
-# Mood
+# mood
+A Mood App

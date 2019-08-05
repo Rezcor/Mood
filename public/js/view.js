@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // Getting a reference to the input field where user adds a new todo
   var $newItemInput = $("input.new-item");
   // Our new todos will go inside the todoContainer
@@ -9,13 +9,11 @@ $(document).ready(function() {
   $(document).on("click", ".todo-item", editTodo);
   $(document).on("keyup", ".todo-item", finishEdit);
   $(document).on("blur", ".todo-item", cancelEdit);
-  $(document).on("submit", "#todo-form", insertTodo);
   $(document).on("click", ".dropdown-item", pickMood)
 
   // Our initial todos array
-var mood;
-var name;
-var users;
+  var users;
+
 
   // Getting todos from database when page loads
   getUsers();
@@ -32,9 +30,9 @@ var users;
 
   // This function grabs todos from the database and updates the view
   function getUsers() {
-    $.get("/users", function(data) {
-    users = data
-      console.log(data)
+    $.get("/users", function (data) {
+      users = data
+      // console.log(data)
       initializeRows();
     });
   }
@@ -107,6 +105,7 @@ var users;
         todo.name,
         "</span>",
         "<input type='text' class='edit' style='display: none;'>",
+        `<br><span>${todo.strain}</span>`,
         "<button class='delete btn btn-danger'>x</button>",
         "<button class='complete btn btn-primary'>✓</button>",
         "</li>"
@@ -134,38 +133,49 @@ var users;
     $newItemInput.val("");
   }
 
-  function pickMood(e){
+function pickMood(e) {
     e.preventDefault();
-    name = $(".new-name").val().trim()
-    mood = $(this).text()
-    $.post("/api/mood", {name:name, mood:mood}).then(function(cb){
-console.log(cb)
-    });
-    calculate()
+  let info= {name : $(".new-name").val().trim(),
+    mood :$(this).text()}
+
+   calculate(info)
+
   }
 
 
- 
 
 
-  function calculate()
-  {
-          if(mood == "Sleepy")
-          {
-console.log("you are sleepy")
-$.get("/api/indica").then(function(cb){
-  console.log(cb[Math.floor(Math.random()*cb.length)])
-})
-}else if(mood == "Energetic"){
-  $.get("/api/sativa").then(function(cb){
-  console.log(cb[Math.floor(Math.random()*cb.length)])
-  console.log("you are energetic")
-})
-}else{
-console.log("You are anxious")
-$.get("/api/hybrid").then(function(cb){
-  console.log(cb[Math.floor(Math.random()*cb.length)])
-})
-}
-}
+
+  async function calculate(info) {
+    let randomStrain;
+    if (info.mood == "Sleepy") {
+      console.log("you are sleepy")
+      $.get("/api/indica").then(function (cb) {
+        randomStrain = cb[Math.floor(Math.random() * cb.length)]
+        console.log(randomStrain)
+        $.post("/api/mood", { name: info.name, mood: info.mood, strain: randomStrain.name }).then(function (cb) {
+      console.log(cb)})
+      getUsers()
+      })
+    } else if (info.mood == "Energetic") {
+      console.log("you are energetic")
+      $.get("/api/sativa").then(function (cb) {
+        randomStrain = cb[Math.floor(Math.random() * cb.length)]
+        console.log(randomStrain)
+        $.post("/api/mood", { name: info.name, mood: info.mood, strain: randomStrain.name }).then(function (cb) {
+          console.log(cb)})
+          getUsers()
+      })
+    } else {
+      console.log("You are anxious")
+      $.get("/api/hybrid").then(function (cb) {
+        randomStrain = cb[Math.floor(Math.random() * cb.length)]
+        console.log(randomStrain)
+        $.post("/api/mood", { name: info.name, mood: info.mood, strain: randomStrain.name }).then(function (cb) {
+          console.log(cb)})
+          getUsers()
+      })
+    }
+
+  }
 })

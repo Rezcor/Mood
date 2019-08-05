@@ -4,8 +4,12 @@
 
 // Dependencies
 // =============================================================
+// API KEY 
 
+//QUERY STRING
+// https://www.googleapis.com/customsearch/v1?key=AIzaSyDrNhLZ8MfPSVO8fBGSEWn2LDfVkPw1fOI&cx=014974395760386484492:go16a2ns_yw&q=chronic
 // Requiring our Todo model
+
 var db = require("../models");
 
 // Routes
@@ -280,7 +284,8 @@ module.exports = function (app) {
     // and complete property (req.body)
     db.User.create({
     name: req.body.name,
-      mood: req.body.mood
+      mood: req.body.mood,
+      strain: req.body.strain
       // complete: req.body.complete
     }).then(function (dbMood) {
       // We have access to the new todo as an argument inside of the callback function

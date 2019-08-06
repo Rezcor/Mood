@@ -1,19 +1,82 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Fjalla One', sans-serif;
+}
+body {
+  background: url("../assets/background.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: left 40% bottom 20% right 20%; 
+  filter: sepia(50%);
+}
+header {
+  margin: 30px;
+  padding: 1rem;
+  background: url("../assets/MoodzLogo2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+.carousel--container {
+  margin: 100px;
+  padding: 5px;
+  background: firebrick;
+  border:  2px solid goldenrod;
+  box-shadow: inset 2px 2px 7px rgba(0, 0, 0, 0.5);
+}
+img {
+  width: 300px;
+  height: 300px;
+}
 .todo-list {
   margin: 0 auto;
   margin-top: 75px;
 }
-
 input.new-item:focus {
   outline: none;
 }
-
 .list-group-item > button.delete,
 .list-group-item > button.complete {
   float: right;
   height: 25px;
   margin-left: 5px;
 }
-
 .edit {
   width: 100%;
+}
+.tales {
+  width: 100%;
+}
+.carousel-inner{
+  width:100%;
+  max-height: 600px !important;
+}
+.image--container{
+  display: inline-block;
+  margin: 30px;
+  padding: 5rem;
+}
+.main--footer {
+  margin: 30px 30px 0px 30px;
+  padding: .5rem;
+  background: whitesmoke;
+  text-align: center;
+  box-shadow: 2px 2px 7px 2px black;
+}
+.main--footer__image {
+  width: 40px;
+  height: 40px;
+}
+.body{
+  background: url("../assets/MoodzStore.jpg");
+  margin: 300px 300px 300px 300px;
+  padding: 5rem;
+  background: whitesmoke;
+  box-shadow: 200px 200px 300px 300px black;
+  
+    float: right;
+    margin-right: 5px;
+ }
+
 }

@@ -9,15 +9,27 @@ $(document).ready(function () {
   $(document).on("click", ".todo-item", editTodo);
   $(document).on("keyup", ".todo-item", finishEdit);
   $(document).on("blur", ".todo-item", cancelEdit);
-  $(document).on("click", ".dropdown-item", pickMood)
-
+  $(document).on("click", ".moodsele", pickMood)
+  $(document).on("click", "#takeUser", takeUser)
+  $(document).on("click", "#showList", toggleList)
+  $(document).on("click", "#noShow", toggleList)
   // Our initial todos array
   var users;
+  var mood;
 
 
   // Getting todos from database when page loads
   getUsers();
 
+  function toggleList(e) {
+    e.preventDefault()
+    var toggleBool = $(this).attr("id")
+    if($(this).attr("id")=== "noShow"){
+      $(".todo-container").css("display","none")
+    }else{
+      $(".todo-container").css("display","inline")
+    }
+  }
   // This function resets the todos displayed with new todos from the database
   function initializeRows() {
     $todoContainer.empty();
@@ -55,6 +67,8 @@ $(document).ready(function () {
     $(this).children("input.edit").show();
     $(this).children("input.edit").focus();
   }
+
+  
 
   // Toggles complete status
   function toggleComplete(event) {
@@ -133,13 +147,17 @@ $(document).ready(function () {
     $newItemInput.val("");
   }
 
-function pickMood(e) {
+function takeUser(e) {
     e.preventDefault();
   let info= {name : $(".new-name").val().trim(),
-    mood :$(this).text()}
-
+    mood : mood}
    calculate(info)
+  }
 
+  function pickMood(e){
+    e.preventDefault()
+mood = $(this).val()
+console.log(mood)
   }
 
 
